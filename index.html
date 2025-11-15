@@ -37,6 +37,14 @@
         .text-brand-secondary {
             color: var(--color-brand-secondary);
         }
+
+        /* 確保手機選單在展開時能覆蓋內容 */
+        @media (max-width: 768px) {
+            #mobile-menu a {
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
     </style>
 </head>
 
@@ -45,13 +53,13 @@
         <div class="container mx-auto flex justify-between items-center p-4">
             <a href="#" class="text-2xl font-bold text-brand-secondary">泰蝦小棧</a>
 
-            <nav class="hidden md:flex space-x-6">
-                <a href="菜單.pdf" target="_blank" class="text-brand-secondary hover:text-white transition duration-300">菜單</a>
-                <a href="#features" class="text-brand-secondary hover:text-white transition duration-300">今日限定</a>
-                <a href="tel:0983121311" class="px-4 py-2 bg-brand-secondary text-brand-primary rounded-full font-bold hover:bg-white transition duration-300">立即訂位</a>
-            </nav>
+            <button id="menu-button" class="md:hidden text-brand-secondary text-2xl" onclick="toggleMenu()">☰</button>
 
-            <button class="md:hidden text-brand-secondary text-2xl">☰</button>
+            <nav id="mobile-menu" class="hidden md:flex flex-col md:flex-row space-x-0 md:space-x-6 absolute md:relative top-full left-0 w-full md:w-auto bg-brand-primary md:bg-transparent shadow-md md:shadow-none p-4 md:p-0">
+                <a href="menu.pdf" target="_blank" class="text-brand-secondary hover:text-white transition duration-300 block">菜單</a>
+                <a href="#features" class="text-brand-secondary hover:text-white transition duration-300 block">今日限定</a>
+                <a href="tel:0983121311" class="px-4 py-2 bg-brand-secondary text-brand-primary rounded-full font-bold hover:bg-white transition duration-300 block mt-2 md:mt-0">立即訂位</a>
+            </nav>
         </div>
     </header>
 
@@ -126,6 +134,24 @@
             </p>
         </div>
     </section>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('mobile-menu');
+            // 檢查選單是否包含 'hidden' 類別 (隱藏狀態)
+            if (menu.classList.contains('hidden')) {
+                // 如果是隱藏，則移除 'hidden' 讓它顯示
+                menu.classList.remove('hidden');
+                // 並將選單調整為垂直排版，覆蓋整個寬度
+                menu.classList.add('flex', 'flex-col');
+            } else {
+                // 如果是顯示，則加入 'hidden' 讓它隱藏
+                menu.classList.add('hidden');
+                // 移除 flex 相關排版
+                menu.classList.remove('flex', 'flex-col');
+            }
+        }
+    </script>
 </body>
 
 </html>
